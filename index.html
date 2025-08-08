@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Inflation Policy Framework Dashboard - Nigeria</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .counter { transition: all 0.3s ease; }
+        .fade-in { animation: fadeIn 0.8s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .slide-in { animation: slideIn 0.6s ease-out; }
+        @keyframes slideIn { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+        .pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .crisis-card { transition: all 0.3s ease; transform: translateY(0); }
+        .crisis-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <!-- Navigation Sidebar -->
+    <div id="sidebar" class="fixed left-0 top-0 h-full w-80 bg-white shadow-xl transform -translate-x-full transition-transform duration-300 z-50 overflow-y-auto">
+        <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl font-bold text-gray-800">Policy Framework</h2>
+                <button id="closeSidebar" class="p-2 hover:bg-gray-100 rounded-lg">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+        
+        <nav class="p-4">
+            <div class="space-y-2">
+                <!-- Policy Context -->
+                <div class="border-b border-gray-100 pb-4">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Policy Context</h3>
+                    <a href="#title" class="nav-link flex items-center p-3 rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors">
+                        <i data-lucide="home" class="w-5 h-5 mr-3"></i>
+                        Title Page
+                    </a>
+                    <a href="#team" class="nav-link flex items-center p-3 rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors">
+                        <i data-lucide="users" class="w-5 h-5 mr-3"></i>
+                        Advisory Team
+                    </a>
+                    <a href="#overview" class="nav-link flex items-center p-3 rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors">
+                        <i data-lucide="bar-chart-3" class="w-5 h-5 mr-3"></i>
+                        Crisis Overview
+                    </a>
+                </div>
+                
+                <!-- Policy Environment -->
+                <div class="border-b border-gray-100 pb-4">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Policy Environment</h3>
+                    <a href="#existing" class="nav-link flex items-center p-3 rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors">
+                        <i data-lucide="file-text" class="w-5 h-5 mr-3"></i>
+                        Existing Policies
+                        <span class="ml-auto text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Dev</span>
+                    </a>
+                    <a href="#effectiveness" class="nav-link flex items-center p-3 rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors">
+                        <i data-lucide="clipboard-check" class="w-5 h-5 mr-3"></i>
+                        Effectiveness
+                        <span class="ml-auto text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Dev</span>
+                    </a>
+                    <a href="#gaps" class="nav-link flex items-center p-3 rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors">
+                        <i data-lucide="alert-triangle" class="w-5 h-5 mr-3"></i>
+                        Gaps & Challenges
+                        <span class="ml-auto text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Dev</span>
+                    </a>
+                </div>
+                
+                <!-- Policy Proposal -->
+                <div class="border-b border-gray-100 pb-4">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Policy Proposal</h3>
+                    <a href="#problem" class="nav-link flex items-center p-3 rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors">
+                        <i data-lucide="search" class="w-5 h-5 mr-3"></i>
+                        Problem Definition
+                        <span class="ml-auto text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">Soon</span>
+                    </a>
+                    <a href="#objectives" class="nav-link flex items-center p-3 rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors">
+                        <i data-lucide="target" class="w-5 h-5 mr-3"></i>
+                        Policy Objectives
+                        <span class="ml-auto text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">Soon</span>
+                    </a>
+                    <a href="#intervention" class="nav-link flex items-center p-3 rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors">
+                        <i data-lucide="lightbulb" class="w-5 h-5 mr-3"></i>
+                        Proposed Intervention
+                        <span class="ml-auto text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">Soon</span>
+                    </a>
+                </div>
+                
+                <!-- Policy Governance -->
+                <div class="border-b border-gray-100 pb-4">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Policy Governance</h3>
+                    <a href="#implementation" class="nav-link flex items-center p-3 rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors">
+                        <i data-lucide="settings" class="w-5 h-5 mr-3"></i>
+                        Implementation
+                        <span class="ml-auto text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">Soon</span>
+                    </a>
+                    <a href="#risk" class="nav-link flex items-center p-3 rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors">
+                        <i data-lucide="shield-alert" class="w-5 h-5 mr-3"></i>
+                        Risk Management
+                        <span class="ml-auto text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">Soon</span>
+                    </a>
+                </div>
+                
+                <!-- Policy Performance -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Policy Performance</h3>
+                    <a href="#monitoring" class="nav-link flex items-center p-3 rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors">
+                        <i data-lucide="activity" class="w-5 h-5 mr-3"></i>
+                        Monitoring & Evaluation
+                        <span class="ml-auto text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">Soon</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40">
+            <div class="px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <button id="openSidebar" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                            <i data-lucide="menu" class="w-6 h-6"></i>
+                        </button>
+                        <div>
+                            <h1 class="text-xl font-bold text-gray-900">🌾 Food Inflation Policy Framework</h1>
+                            <p class="text-sm text-gray-600">Nigeria's Food Security Crisis Analysis</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <span class="text-sm text-gray-500">PAD207 | Group 6</span>
+                        <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                            <span class="text-white text-sm font-semibold">🇳🇬</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Title Section -->
+        <section id="title" class="gradient-bg text-white py-20">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center fade-in">
+                    <div class="mb-8">
+                        <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                            🌾 National Food Security Crisis
+                        </h1>
+                        <p class="text-xl md:text-2xl text-blue-100 mb-8 max-w-4xl mx-auto">
+                            Interactive Policy Analysis Dashboard for Nigeria's Food Inflation Emergency
+                        </p>
+                        <div class="text-lg text-blue-200 mb-12">
+                            <p><strong>National Food Security and Price Stabilization Framework (NFSPSF)</strong></p>
+                            <p>Evidence-Based Policy Solutions | Group 6 | PAD207</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Crisis Statistics -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                        <div class="crisis-card bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                            <div class="text-4xl font-bold text-red-300 mb-2 counter" data-target="40.9">0</div>
+                            <div class="text-sm text-blue-100">Peak Food Inflation (%)</div>
+                            <div class="text-xs text-blue-200 mt-1">March 2024</div>
+                        </div>
+                        <div class="crisis-card bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                            <div class="text-4xl font-bold text-orange-300 mb-2 counter" data-target="33.1">0</div>
+                            <div class="text-sm text-blue-100">Million People</div>
+                            <div class="text-xs text-blue-200 mt-1">Acute Food Insecurity</div>
+                        </div>
+                        <div class="crisis-card bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                            <div class="text-4xl font-bold text-yellow-300 mb-2">₦<span class="counter" data-target="3.5">0</span>T</div>
+                            <div class="text-sm text-blue-100">Annual Loss</div>
+                            <div class="text-xs text-blue-200 mt-1">Post-Harvest Waste</div>
+                        </div>
+                        <div class="crisis-card bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                            <div class="text-4xl font-bold text-red-300 mb-2 counter" data-target="104">0</div>
+                            <div class="text-sm text-blue-100">Million Nigerians</div>
+                            <div class="text-xs text-blue-200 mt-1">Living in Poverty</div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <p class="text-xl text-blue-100 italic mb-8">
+                            "There is hunger in the land - but there is also hope in our solutions."
+                        </p>
+                        <button onclick="scrollToSection('overview')" class="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition-colors shadow-lg">
+                            Explore Crisis Analysis →
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section id="team" class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-12 fade-in">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4">👥 Advisory Team - Group 6</h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                        Meet the policy analysts and researchers behind the National Food Security and Price Stabilization Framework
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="crisis-card bg-gradient-to-br from-blue-50 to-indigo-100 rounded-xl p-6 text-center border border-blue-200">
+                        <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">🦅</span>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">Eagles Emerie Asher</h3>
+                        <p class="text-sm text-gray-600 mb-3">Lead Policy Analyst</p>
+                        <div class="text-xs text-blue-600 bg-blue-100 px-3 py-1 rounded-full inline-block">Project Lead</div>
+                    </div>
+                    
+                    <div class="crisis-card bg-gradient-to-br from-purple-50 to-pink-100 rounded-xl p-6 text-center border border-purple-200">
+                        <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">⭐</span>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">Esther Shaba Orkuma</h3>
+                        <p class="text-sm text-gray-600 mb-3">Data Analyst</p>
+                        <div class="text-xs text-purple-600 bg-purple-100 px-3 py-1 rounded-full inline-block">Research</div>
+                    </div>
+                    
+                    <div class="crisis-card bg-gradient-to-br from-green-50 to-emerald-100 rounded-xl p-6 text-center border border-green-200">
+                        <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">🌟</span>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">Toju Omagbemi Obioru</h3>
+                        <p class="text-sm text-gray-600 mb-3">Policy Researcher</p>
+                        <div class="text-xs text-green-600 bg-green-100 px-3 py-1 rounded-full inline-block">Analysis</div>
+                    </div>
+                    
+                    <div class="crisis-card bg-gradient-to-br from-yellow-50 to-orange-100 rounded-xl p-6 text-center border border-yellow-200">
+                        <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">💎</span>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">Mmachukwu Scholastica John</h3>
+                        <p class="text-sm text-gray-600 mb-3">Implementation Specialist</p>
+                        <div class="text-xs text-yellow-600 bg-yellow-100 px-3 py-1 rounded-full inline-block">Strategy</div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
+                    <div class="crisis-card bg-gradient-to-br from-red-50 to-pink-100 rounded-xl p-6 text-center border border-red-200">
+                        <div class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">🚀</span>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">Oluwasegun Olalekan</h3>
+                        <p class="text-sm text-gray-600 mb-3">Economic Analyst</p>
+                        <div class="text-xs text-red-600 bg-red-100 px-3 py-1 rounded-full inline-block">Economics</div>
+                    </div>
+                    
+                    <div class="crisis-card bg-gradient-to-br from-indigo-50 to-blue-100 rounded-xl p-6 text-center border border-indigo-200">
+                        <div class="w-16 h-16 bg-indigo-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">🎯</span>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">Otamere Osaigbovo</h3>
+                        <p class="text-sm text-gray-600 mb-3">Risk Assessment</p>
+                        <div class="text-xs text-indigo-600 bg-indigo-100 px-3 py-1 rounded-full inline-block">Risk Mgmt</div>
+                    </div>
+                    
+                    <div class="crisis-card bg-gradient-to-br from-pink-50 to-rose-100 rounded-xl p-6 text-center border border-pink-200">
+                        <div class="w-16 h-16 bg-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">🌸</span>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">Hope Ify Eweka</h3>
+                        <p class="text-sm text-gray-600 mb-3">Social Impact Analyst</p>
+                        <div class="text-xs text-pink-600 bg-pink-100 px-3 py-1 rounded-full inline-block">Social Policy</div>
+                    </div>
+                    
+                    <div class="crisis-card bg-gradient-to-br from-teal-50 to-cyan-100 rounded-xl p-6 text-center border border-teal-200">
+                        <div class="w-16 h-16 bg-teal-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">✨</span>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">Ngozi Sandra Ojum</h3>
+                        <p class="text-sm text-gray-600 mb-3">Monitoring & Evaluation</p>
+                        <div class="text-xs text-teal-600 bg-teal-100 px-3 py-1 rounded-full inline-block">M&E</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Crisis Overview Section -->
+        <section id="overview" class="py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-12 fade-in">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4">📊 Crisis Overview Dashboard</h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                        Interactive timeline and data visualization of Nigeria's escalating food security crisis
+                    </p>
+                </div>
+                
+                <!-- Timeline -->
+                <div class="mb-16">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-8 text-center">📈 Food Inflation Timeline (2020-2024)</h3>
+                    <div class="relative">
+                        <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-green-400 via-yellow-400 to-red-500"></div>
+                        
+                        <div class="space-y-12">
+                            <div class="flex items-center justify-start">
+                                <div class="w-1/2 pr-8 text-right">
+                                    <div class="crisis-card bg-white rounded-lg p-6 shadow-lg border-l-4 border-green-400">
+                                        <h4 class="font-bold text-lg text-gray-900">2020 - Pre-Crisis</h4>
+                                        <p class="text-green-600 font-semibold">12.4% Food Inflation</p>
+                                        <p class="text-sm text-gray-600 mt-2">Relatively stable food prices with manageable inflation rates</p>
+                                    </div>
+                                </div>
+                                <div class="w-4 h-4 bg-green-400 rounded-full border-4 border-white shadow-lg z-10"></div>
+                                <div class="w-1/2 pl-8"></div>
+                            </div>
+                            
+                            <div class="flex items-center justify-end">
+                                <div class="w-1/2 pr-8"></div>
+                                <div class="w-4 h-4 bg-yellow-400 rounded-full border-4 border-white shadow-lg z-10"></div>
+                                <div class="w-1/2 pl-8">
+                                    <div class="crisis-card bg-white rounded-lg p-6 shadow-lg border-l-4 border-yellow-400">
+                                        <h4 class="font-bold text-lg text-gray-900">2021 - Warning Signs</h4>
+                                        <p class="text-yellow-600 font-semibold">17.4% Food Inflation</p>
+                                        <p class="text-sm text-gray-600 mt-2">COVID-19 impacts begin affecting food supply chains</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center justify-start">
+                                <div class="w-1/2 pr-8 text-right">
+                                    <div class="crisis-card bg-white rounded-lg p-6 shadow-lg border-l-4 border-orange-400">
+                                        <h4 class="font-bold text-lg text-gray-900">2022 - Escalation</h4>
+                                        <p class="text-orange-600 font-semibold">23.1% Food Inflation</p>
+                                        <p class="text-sm text-gray-600 mt-2">Security challenges and climate impacts intensify</p>
+                                    </div>
+                                </div>
+                                <div class="w-4 h-4 bg-orange-400 rounded-full border-4 border-white shadow-lg z-10"></div>
+                                <div class="w-1/2 pl-8"></div>
+                            </div>
+                            
+                            <div class="flex items-center justify-end">
+                                <div class="w-1/2 pr-8"></div>
+                                <div class="w-4 h-4 bg-red-400 rounded-full border-4 border-white shadow-lg z-10"></div>
+                                <div class="w-1/2 pl-8">
+                                    <div class="crisis-card bg-white rounded-lg p-6 shadow-lg border-l-4 border-red-400">
+                                        <h4 class="font-bold text-lg text-gray-900">2023 - Critical Point</h4>
+                                        <p class="text-red-600 font-semibold">35.7% Food Inflation</p>
+                                        <p class="text-sm text-gray-600 mt-2">Currency devaluation and fuel subsidy removal impacts</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center justify-start">
+                                <div class="w-1/2 pr-8 text-right">
+                                    <div class="crisis-card bg-white rounded-lg p-6 shadow-lg border-l-4 border-red-600">
+                                        <h4 class="font-bold text-lg text-gray-900">2024 - Peak Crisis</h4>
+                                        <p class="text-red-600 font-semibold">40.9% Food Inflation</p>
+                                        <p class="text-sm text-gray-600 mt-2">Highest food inflation rate in decades - Emergency intervention needed</p>
+                                    </div>
+                                </div>
+                                <div class="w-4 h-4 bg-red-600 rounded-full border-4 border-white shadow-lg z-10 pulse-slow"></div>
+                                <div class="w-1/2 pl-8"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Key Indicators -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                    <div class="crisis-card bg-white rounded-xl p-8 shadow-lg border border-gray-200">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mr-4">
+                                <i data-lucide="trending-up" class="w-6 h-6 text-red-600"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900">Food Inflation Rate</h3>
+                        </div>
+                        <div class="text-3xl font-bold text-red-600 mb-2">40.9%</div>
+                        <p class="text-sm text-gray-600">Peak reached in March 2024</p>
+                        <div class="mt-4 bg-red-50 rounded-lg p-3">
+                            <p class="text-xs text-red-700">Critical threshold exceeded - Immediate intervention required</p>
+                        </div>
+                    </div>
+                    
+                    <div class="crisis-card bg-white rounded-xl p-8 shadow-lg border border-gray-200">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
+                                <i data-lucide="users" class="w-6 h-6 text-orange-600"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900">Food Insecurity</h3>
+                        </div>
+                        <div class="text-3xl font-bold text-orange-600 mb-2">33.1M</div>
+                        <p class="text-sm text-gray-600">People facing acute food insecurity</p>
+                        <div class="mt-4 bg-orange-50 rounded-lg p-3">
+                            <p class="text-xs text-orange-700">15% of Nigeria's population affected</p>
+                        </div>
+                    </div>
+                    
+                    <div class="crisis-card bg-white rounded-xl p-8 shadow-lg border border-gray-200">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mr-4">
+                                <i data-lucide="dollar-sign" class="w-6 h-6 text-yellow-600"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900">Economic Loss</h3>
+                        </div>
+                        <div class="text-3xl font-bold text-yellow-600 mb-2">₦3.5T</div>
+                        <p class="text-sm text-gray-600">Annual post-harvest waste</p>
+                        <div class="mt-4 bg-yellow-50 rounded-lg p-3">
+                            <p class="text-xs text-yellow-700">40% of agricultural produce lost annually</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Call to Action -->
+                <div class="text-center bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-12 text-white">
+                    <h3 class="text-3xl font-bold mb-4">🎯 The Solution: NFSPSF Framework</h3>
+                    <p class="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
+                        Our comprehensive National Food Security and Price Stabilization Framework addresses root causes through evidence-based policy interventions
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <button onclick="scrollToSection('existing')" class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-50 transition-colors">
+                            Explore Policy Environment →
+                        </button>
+                        <button class="border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition-colors">
+                            View Framework Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Development Sections Placeholder -->
+        <section id="existing" class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-6 text-center">
+                <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-12">
+                    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="construction" class="w-8 h-8 text-yellow-600"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">🚧 Policy Environment Section</h2>
+                    <p class="text-xl text-gray-600 mb-6">Currently in development - Coming soon!</p>
+                    <div class="text-sm text-yellow-700 bg-yellow-100 px-4 py-2 rounded-full inline-block">
+                        Phase 2: In Development
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white py-12">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div class="col-span-2">
+                        <h3 class="text-xl font-bold mb-4">🌾 Food Inflation Policy Framework</h3>
+                        <p class="text-gray-300 mb-4">
+                            Evidence-based policy solutions for Nigeria's food security crisis. 
+                            Developed by Group 6 for PAD207 - Public Policy Analysis.
+                        </p>
+                        <div class="text-sm text-gray-400">
+                            <p>Miva Open University | August 2025</p>
+                            <p>Federal Republic of Nigeria Food Security Policy</p>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-semibold mb-4">Data Sources</h4>
+                        <ul class="text-sm text-gray-300 space-y-2">
+                            <li>• National Bureau of Statistics (NBS)</li>
+                            <li>• World Food Programme (WFP)</li>
+                            <li>• Food and Agriculture Organization (FAO)</li>
+                            <li>• Central Bank of Nigeria (CBN)</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-semibold mb-4">Project Status</h4>
+                        <div class="text-sm space-y-2">
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-green-400 rounded-full mr-2"></div>
+                                <span class="text-gray-300">Policy Context - Complete</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-yellow-400 rounded-full mr-2"></div>
+                                <span class="text-gray-300">Policy Environment - In Dev</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-gray-400 rounded-full mr-2"></div>
+                                <span class="text-gray-300">Policy Proposal - Planned</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                    <p class="text-gray-400 text-sm">
+                        © 2025 Group 6 - PAD207. Built with ❤️ for Nigeria's Food Security. 
+                        <span class="text-blue-400">Version 1.0.0</span>
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Overlay for mobile sidebar -->
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Sidebar functionality
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const openSidebar = document.getElementById('openSidebar');
+        const closeSidebar = document.getElementById('closeSidebar');
+        
+        openSidebar.addEventListener('click', () => {
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+        });
+        
+        closeSidebar.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        });
+        
+        overlay.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        });
+        
+        // Navigation links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = link.getAttribute('href').substring(1);
+                scrollToSection(target);
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            });
+        });
+        
+        // Smooth scrolling function
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+        
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = parseFloat(counter.getAttribute('data-target'));
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += step;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    counter.textContent = current.toFixed(1);
+                }, 16);
+            });
+        }
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    if (entry.target.id === 'title') {
+                        setTimeout(animateCounters, 500);
+                    }
+                }
+            });
+        }, observerOptions);
+        
+        // Observe sections for animation
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Initialize counters on page load
+        window.addEventListener('load', () => {
+            setTimeout(animateCounters, 1000);
+        });
+    </script>
+</body>
+</html>
